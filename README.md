@@ -10,8 +10,8 @@ API keys.
 
 > **Build status:** This repo is being built phase-by-phase per the
 > development order below. **Phase 1 (project architecture &
-> configuration) is complete.** Each subsequent phase adds models,
-> services, and routes on top of this same structure.
+> configuration) and Phase 2 (database models) are complete.** Each
+> subsequent phase adds services and routes on top of this same structure.
 
 ## Phase 1 — what's included
 
@@ -27,10 +27,39 @@ API keys.
 - `requirements.txt` covering the full stack this project will need
   through later phases (PDF/OCR, NLP/ML, optional Gemini/HF)
 
+## Phase 2 — what's included
+
+Full SQLAlchemy schema for every model in Section 28 of the spec, split
+across `models/`:
+
+- `user.py` — `User` (auth only) + `StudentProfile` (1:1, holds all
+  onboarding data from Section 8)
+- `academic.py` — `University → Course → Branch → Semester → Subject`
+  hierarchy, plus `StudentSubject` (which subjects a student is prepping
+  for, each with its own exam date)
+- `question_paper.py` — `QuestionPaper` (upload + extraction pipeline
+  state machine) and `Question` (with duplicate-detection fields)
+- `topic.py` — `Topic` (with cached frequency/trend/priority stats) and
+  `QuestionTopic` (many-to-many join with confidence score)
+- `analysis.py` — `Analysis` (versioned per-subject snapshot, used for
+  backtesting) and `Prediction` (probability band + structured reasoning,
+  never invented by an LLM)
+- `practice.py` — `PracticeQuestion` and `PracticeAttempt`
+- `mentor.py` — `MentorConversation` and `MentorMessage` (tracks which
+  fallback tier — deterministic / local ML / optional LLM — produced each
+  reply)
+- `study_plan.py` — `StudyPlan` and `StudyTask`
+- `progress.py` — `StudentProgress` (per student/topic mastery) and
+  `ExamReadiness` (versioned readiness snapshots with plain-language
+  explanations)
+
+All 21 tables, every foreign key, and all 36 `back_populates` relationship
+pairs have been mechanically cross-checked for consistency.
+
 ## Development order
 
 1. ✅ Project architecture and configuration
-2. Database models
+2. ✅ Database models
 3. Authentication and user profiles (full onboarding)
 4. University/course/subject structure
 5. Question paper upload and processing

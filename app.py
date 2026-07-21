@@ -41,11 +41,22 @@ def _init_extensions(app: Flask) -> None:
 
     # Import models so Flask-Migrate can detect them. This import must happen
     # after db.init_app() and inside a function to avoid circular imports.
-    from models import user  # noqa: F401
-    # NOTE: Phase 1 ships only the User model so the app boots end-to-end.
-    # academic, question_paper, topic, analysis, prediction, practice,
-    # mentor, study_plan, and progress models are added in Phase 2+ and
-    # imported here as they land.
+    # Order matters only for readability here — SQLAlchemy resolves
+    # cross-file relationships lazily via string names, so it's safe for
+    # e.g. models.user to reference "University" before models.academic
+    # has been imported, as long as every module IS imported before any
+    # query/db.create_all() actually runs.
+    from models import (  # noqa: F401
+        user,
+        academic,
+        question_paper,
+        topic,
+        analysis,
+        practice,
+        mentor,
+        study_plan,
+        progress,
+    )
 
     from models.user import User
 
@@ -94,8 +105,12 @@ def _register_cli_commands(app: Flask) -> None:
 
     @app.cli.command("seed-db")
     def seed_db():
-        """Seed reference data (universities/courses/branches/semesters)."""
-        from services.seed import run_seed
+        """Seed reference data when the seed service is available."""
+        try:
+            from services.seed import run_seed
+        except ModuleNotFoundError:
+            print("Seed data is not implemented yet. Use 'flask init-db' for now.")
+            return
 
         run_seed()
         print("Database seeded.")

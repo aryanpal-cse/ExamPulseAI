@@ -1,15 +1,53 @@
-# Secrets
-.env
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
 
-# Virtual environment
+# Virtual environments
 venv/
 .venv/
+env/
 
-# Python cache
+# Environment variables
+.env
+
+# Database
+data/*.db
+data/exampulse.db
+data/uploads/*
+!data/uploads/.gitkeep
+
+# Flask-Migrate
+migrations/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs
+*.log
+
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# Python environment and cache
+venv/
+.venv/
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
 
 # Local databases
 *.db
@@ -17,9 +55,7 @@ __pycache__/
 *.sqlite3
 instance/
 
-# Editor and testing files
-.vscode/
-.pytest_cache/
-
-# Uploaded files
+# User uploads
+data/uploads/*
+!data/uploads/.gitkeep
 uploads/
