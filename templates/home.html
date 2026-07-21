@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}{{ app_name }}{% endblock %}
+
+{% block content %}
+<section class="hero text-center py-5">
+    <div class="container">
+        <h1 class="display-5 fw-bold">Prepare Smarter.<br>Study What Matters.</h1>
+        <p class="lead text-muted mt-3 mx-auto" style="max-width: 640px;">
+            ExamPulse AI analyzes previous exam papers and creates a personalized
+            preparation strategy for you.
+        </p>
+        <div class="d-flex flex-wrap justify-content-center gap-2 mt-4">
+            <a href="#" class="btn btn-primary btn-lg">Find My Subject</a>
+            <a href="#" class="btn btn-outline-primary btn-lg">Upload Question Paper</a>
+            <a href="#" class="btn btn-outline-secondary btn-lg">Ask AI Mentor</a>
+        </div>
+    </div>
+</section>
+
+<section class="container py-5">
+    <div class="row g-4">
+        {% for icon, title, desc in [
+            ('📊', 'AI Exam Analysis', 'Deep analysis of every past paper for your subject.'),
+            ('🔥', 'Important Topics', 'Know exactly what carries the most weight.'),
+            ('🔁', 'Repeated Questions', 'Spot questions that show up again and again.'),
+            ('🎯', 'Topic Predictions', 'Probability-based guidance on what to prioritize.'),
+            ('🤖', 'AI Mentor', 'A personal study companion that knows your progress.'),
+            ('🗓️', 'Personalized Study Plans', 'A day-by-day plan built around your exam date.'),
+            ('📝', 'Practice Questions', 'Practice by topic, difficulty, and question type.'),
+            ('✅', 'Exam Readiness', 'A clear, honest estimate of how ready you are.'),
+        ] %}
+        <div class="col-6 col-md-3">
+            <div class="card h-100 border-0 shadow-sm text-center p-3">
+                <div class="fs-2">{{ icon }}</div>
+                <div class="fw-semibold mt-2">{{ title }}</div>
+                <div class="text-muted small mt-1">{{ desc }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

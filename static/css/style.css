@@ -1,0 +1,42 @@
+:root {
+    --ep-primary: #4F46E5;
+    --ep-primary-dark: #4338CA;
+    --ep-bg: #F8F9FC;
+}
+
+body {
+    background-color: var(--ep-bg);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.navbar-brand {
+    color: var(--ep-primary) !important;
+}
+
+.btn-primary {
+    background-color: var(--ep-primary);
+    border-color: var(--ep-primary);
+}
+
+.btn-primary:hover {
+    background-color: var(--ep-primary-dark);
+    border-color: var(--ep-primary-dark);
+}
+
+.btn-outline-primary {
+    color: var(--ep-primary);
+    border-color: var(--ep-primary);
+}
+
+.hero {
+    background: linear-gradient(180deg, #EEF2FF 0%, var(--ep-bg) 100%);
+}
+
+.card {
+    border-radius: 12px;
+    transition: transform 0.15s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
